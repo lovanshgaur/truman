@@ -1,26 +1,39 @@
-.formWrapper {
+.requestPanel {
+  width: 85%;
+  margin: 3rem auto;
+}
+.requestFormWrapper {
   width: 100%;
-  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.25rem;
 }
-.formWrapper .formType {
-  padding: 0 0.5rem;
-  border: 1px solid black;
+.formType {
+  background: var(--surface);
+  padding: 0.5rem 0.75rem;
+  font-size: 1.25rem;
 }
-.formWrapper .apiForm {
+.apiForm {
   width: 100%;
   display: flex;
-  justify-content: center;
-  border: 1px solid black;
-  padding: 0 0.5rem;
-}
-.apiForm button,
-.apiForm input {
-  border: none;
-  background: none;
+  gap: 0.5rem;
 }
 .apiForm input {
   width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  color: var(--muted);
+}
+.apiForm input:hover,
+.apiForm input:focus,
+.apiForm input::focus-visible,
+.apiForm input:active {
+  background: var(--surface) !important;
+  color: var(--accent);
+}
+
+.apiForm button {
+  background: var(--accent);
+  padding: 0.5rem 1.5rem;
 }

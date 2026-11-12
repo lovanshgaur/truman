@@ -1,9 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 :root {
-  --background: #404e3b;
-  --surface: #7b9669;
-  --color: #e6e6e6;
-  --muted: #bacb81;
-  --accent: #6c8480;
+  --background: #0d1117;
+  --surface: #161b22;
+  --color: #e6edf3;
+  --muted: #8b949e7a;
+  --accent: #b8f36b;
+  --highlight: #243329;
+
+  --success: lime;
+  --error: orangered;
+
+  --display: "DM Serif Display", serif;
+  --text: "DM Serif Text", serif;
+  --sans: "DM Sans", sans-serif;
+  --mono: "Space Mono", monospace;
 }
 * {
   margin: 0;
@@ -16,6 +27,7 @@ body {
   line-height: 1.6;
   background: var(--background);
   color: var(--color);
+  font-family: var(--sans);
   scroll-behavior: smooth;
 }
 img,
@@ -41,4 +53,27 @@ a {
 ul[role="list"],
 ol[role="list"] {
   list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+}
+.ok {
+  color: var(--success);
+}
+.err {
+  color: var(--error);
+}
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+main {
+  width: 100%;
 }

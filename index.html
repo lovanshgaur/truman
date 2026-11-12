@@ -11,27 +11,38 @@
 </head>
 
 <body>
-
-
-    <div class="formWrapper">
-        <div class="formType">GET</div>
-        <form class="apiForm" id="apiForm">
-            <input type="text" name="api" id="input">
-            <button type="submit">Send</button>
-        </form>
-    </div>
-    <div class="output">
-        <div class="tags">
-            <div class="tag status">
-                <h4>Status :</h4>
-                <span id="status"></span>
+    <div id="app">
+        <header></header>
+        <main>
+            <div class="requestPanel">
+                <div class="requestFormWrapper">
+                    <div class="formType">
+                        <div class="sans">GET</div>
+                    </div>
+                    <form class="apiForm" id="apiForm">
+                        <input type="text" name="api" id="input">
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
             </div>
-        </div>
-        <pre>
-            <code class="dataWrapper language-json">
-            </code>
-        </pre>
+            <div class="responsePanel">
+                <div class="responseWrapper">
+
+                    <div class="tags">
+                        <div class="tag status">
+                            <h4>Status :</h4>
+                            <span id="status" class="ok"></span>
+                        </div>
+                    </div>
+                    <div class="response-output">
+                        <code class="dataWrapper language-json"></code>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
     </div>
+
 
     <!-- Prism CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

@@ -3,7 +3,7 @@ const trialAPI = `https://jsonplaceholder.typicode.com/posts/1`;
 
 // dom variables
 const form = document.getElementById("apiForm");
-const outputWrapper = document.querySelector(".output");
+const responseWrapper = document.querySelector(".responseWrapper");
 const dataWrapper = document.querySelector(".dataWrapper");
 const statusSpan = document.getElementById("status");
 
@@ -21,22 +21,18 @@ async function submitForm(data) {
   try {
     const response = await fetch(api);
     console.log(response);
+    responseWrapper.style.display = "block"
+    statusSpan.innerText = response.status;
+    statusSpan.classList = "";
     if (response.ok) {
-      statusSpan.innerText = response.status;
+      statusSpan.classList.add("ok");
+    } else {
+      statusSpan.classList.add("err");
     }
 
     const result = await response.json();
-    dataWrapper.textContent = JSON.stringify(result,null,2).trimStart();
+    dataWrapper.textContent = JSON.stringify(result, null, 2).trimStart();
     Prism.highlightElement(dataWrapper);
-    // for (const key in result) {
-    //   const dataField = document.createElement("div");
-    //   dataField.classList.add("dataField");
-    //   dataField.innerHTML = `
-    //     <b>${key}</b>: ${result[key]}
-    //     `;
-    //   dataWrapper.appendChild(dataField);
-    //   console.log(key, result[key]);
-    // }
   } catch (error) {
     console.error(error);
   }
