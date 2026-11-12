@@ -1,3 +1,23 @@
 .output {
   padding: 1rem 2rem;
 }
+.output .tags {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.tags .tag {
+  display: flex;
+  gap: 0.5rem;
+}
+
+pre {
+  background: none !important;
+}
+
+pre code {
+  padding: 0;
+  display: block;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere;
+}

@@ -1,24 +1,44 @@
+:root {
+  --background: #404e3b;
+  --surface: #7b9669;
+  --color: #e6e6e6;
+  --muted: #bacb81;
+  --accent: #6c8480;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-html, body {
+html,
+body {
   height: 100%;
   line-height: 1.6;
+  background: var(--background);
+  color: var(--color);
   scroll-behavior: smooth;
 }
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
+  border: none;
+  outline: none;
 }
 a {
   text-decoration: none;
   color: inherit;
 }
-ul[role='list'], ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }

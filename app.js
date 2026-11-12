@@ -2,8 +2,10 @@
 const trialAPI = `https://jsonplaceholder.typicode.com/posts/1`;
 
 // dom variables
-const form = document.getElementById("basicForm");
+const form = document.getElementById("apiForm");
 const outputWrapper = document.querySelector(".output");
+const dataWrapper = document.querySelector(".dataWrapper");
+const statusSpan = document.getElementById("status");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -14,32 +16,27 @@ form.addEventListener("submit", (e) => {
 });
 
 async function submitForm(data) {
-  outputWrapper.innerHTML = ``;
+  dataWrapper.innerHTML = ``;
   let api = data.api;
   try {
     const response = await fetch(api);
     console.log(response);
     if (response.ok) {
-      outputWrapper.style.backgroundColor = "green";
-      const tags = document.createElement("div");
-      tags.innerHTML = `
-        <div class="tag status"><b>Status</b>: ${response.status}</div>
-      `;
-      outputWrapper.appendChild(tags);
-    } else {
-      outputWrapper.style.backgroundColor = "red";
+      statusSpan.innerText = response.status;
     }
 
     const result = await response.json();
-
-    for (const key in result) {
-      const dataField = document.createElement("div");
-      dataField.innerHTML = `
-        <b>${key}</b>: ${result[key]}
-        `;
-      outputWrapper.appendChild(dataField);
-      console.log(key, result[key]);
-    }
+    dataWrapper.textContent = JSON.stringify(result,null,2).trimStart();
+    Prism.highlightElement(dataWrapper);
+    // for (const key in result) {
+    //   const dataField = document.createElement("div");
+    //   dataField.classList.add("dataField");
+    //   dataField.innerHTML = `
+    //     <b>${key}</b>: ${result[key]}
+    //     `;
+    //   dataWrapper.appendChild(dataField);
+    //   console.log(key, result[key]);
+    // }
   } catch (error) {
     console.error(error);
   }
