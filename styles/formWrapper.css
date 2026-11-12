@@ -27,7 +27,7 @@
 }
 .apiForm input:hover,
 .apiForm input:focus,
-.apiForm input::focus-visible,
+.apiForm input:focus-visible,
 .apiForm input:active {
   background: var(--surface) !important;
   color: var(--accent);

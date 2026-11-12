@@ -1,23 +1,18 @@
 .responsePanel {
   width: 85%;
-  min-height: 40vh;
+  min-height: 100%;
   margin: 2rem auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
   background: var(--surface);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 .responseWrapper{
-  display: none;
+  width: 100%;
 }
 .tags {
   padding: 0.5rem;
-  width: 100%;
-  border-bottom: 0.5px solid var(--muted);
-}
-
-.tags {
   width: 100%;
   display: flex;
   gap: 1rem;
@@ -25,13 +20,33 @@
 .tags .tag {
   display: flex;
   gap: 0.5rem;
+  font-size: 0.75rem;
 }
 .tag span {
   font-family: var(--mono);
 }
 
 .response-output{
-  padding: 1rem;
+  padding: 0.5rem 0rem;
+}
+.response-header{
+  width: 100%;
+}
+.response-actions{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--muted);
+}
+.responseBtn{
+  padding: 0.5rem 0.75rem;
+  background: none;
+  color: var(--color);
+  transition: all 0.5s ease-in-out;
+}
+.responseBtn.active{
+  border-bottom: 1px solid var(--accent);
 }
 code {
   padding: 0;
