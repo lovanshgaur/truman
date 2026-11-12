@@ -14,20 +14,24 @@ form.addEventListener("submit", (e) => {
 });
 
 async function submitForm(data) {
-    outputWrapper.innerHTML = ``
-  console.log(data);
+  outputWrapper.innerHTML = ``;
   let api = data.api;
   try {
     const response = await fetch(api);
-    console.log(response.ok)
-    if(response.ok){
-        outputWrapper.style.backgroundColor = "green"
+    console.log(response);
+    if (response.ok) {
+      outputWrapper.style.backgroundColor = "green";
+      const tags = document.createElement("div");
+      tags.innerHTML = `
+        <div class="tag status"><b>Status</b>: ${response.status}</div>
+      `;
+      outputWrapper.appendChild(tags);
+    } else {
+      outputWrapper.style.backgroundColor = "red";
     }
-    else{
-        outputWrapper.style.backgroundColor = "red"
-    }
+
     const result = await response.json();
-    console.log(result);
+
     for (const key in result) {
       const dataField = document.createElement("div");
       dataField.innerHTML = `
