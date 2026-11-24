@@ -8,10 +8,31 @@ const dataWrapper = document.querySelector(".dataWrapper");
 const statusSpan = document.getElementById("status");
 const responseBtns = document.querySelectorAll(".responseBtn");
 
-// variables
+// states
+let currentResponse = null;
+let resultRaw = "";
+let resultJSON = null;
+let isValidJSON = false;
+let activeView = "raw";
 
-let loading;
+responseBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const btnAction = e.target.dataset.name;
+    if (btnAction === "json" && !isValidJSON) return;
 
+    responseBtns.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeView = btnAction;
+
+    if (currentResponse) {
+      renderData(
+        currentResponse,
+        activeView === "json" ? resultJSON : resultRaw,
+        activeView
+      );
+    }
+  });
+});
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(form);
@@ -25,45 +46,43 @@ async function submitForm(data) {
   let api = data.api;
   try {
     const response = await fetch(api);
-    const resultRaw = await response.text();
-    const resultJSON = JSON.parse(resultRaw);
-    renderData(response, resultRaw, "raw");
-
-    responseBtns.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        responseBtns.forEach(b=>{
-            b.classList.remove('active')
-        })
-        btn.classList.add("active");
-        let btnAction = e.target.dataset.name;
-        if (btnAction === "json") {
-          renderData(response, resultJSON, "json");
-        }
-        if (btnAction === "raw") {
-          renderData(response, resultRaw, "raw");
-        }
+    resultRaw = await response.text();
+    currentResponse = response;
+    try {
+      resultJSON = JSON.parse(resultRaw);
+      isValidJSON = true;
+    } catch (error) {
+      resultJSON = null;
+      isValidJSON = false;
+      activeView = "raw";
+      responseBtns.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.name === "raw");
       });
-    });
+    }
+    renderData(
+      currentResponse,
+      activeView === "json" ? resultJSON : resultRaw,
+      activeView
+    );
   } catch (error) {
     console.error(error);
   }
 }
 
 function renderData(response, result, action) {
-  console.log(action);
+  statusSpan.innerText = response.status;
+  statusSpan.classList = "";
+  if (response.ok) {
+    statusSpan.classList.add("ok");
+  } else {
+    statusSpan.classList.add("err");
+  }
   if (action === "raw") {
-    statusSpan.innerText = response.status;
-    statusSpan.classList = "";
-    if (response.ok) {
-      statusSpan.classList.add("ok");
-    } else {
-      statusSpan.classList.add("err");
-    }
     dataWrapper.textContent = result;
   } else {
-    dataWrapper.textContent = JSON.stringify(result, null, 2).trimStart();
-    Prism.highlight(
-      JSON.stringify(result, null, 2),
+    const formatted = JSON.stringify(result, null, 2).trimStart();
+    dataWrapper.innerHTML = Prism.highlight(
+      formatted,
       Prism.languages.json,
       "json"
     );
