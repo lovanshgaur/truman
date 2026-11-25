@@ -1,0 +1,89 @@
+.historyPanel {
+  width: 85%;
+  margin: 0 auto 3rem auto;
+  padding: 1rem;
+  background: var(--surface);
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.75rem;
+}
+
+.historyHeader h3 {
+  font-size: 1.1rem;
+  color: var(--color);
+}
+
+.clearHistoryBtn {
+  background: none;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.clearHistoryBtn:hover {
+  color: var(--error);
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.historyEmpty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-family: var(--mono);
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--background);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.historyItem:hover {
+  border-color: var(--accent);
+}
+
+.historyMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.historyMethod {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 3.2rem;
+}
+
+.historyUrl {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyStatus {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}

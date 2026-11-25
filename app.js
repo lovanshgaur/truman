@@ -1,6 +1,16 @@
 import { sendRequest } from "./scripts/api.js";
-import { renderResponse, renderError, setLoading } from "./scripts/render.js";
-import { initRequestTabs, getKeyValuePairs } from "./scripts/requestUI.js";
+import {
+  renderResponse,
+  renderError,
+  setLoading,
+  renderHistory,
+} from "./scripts/render.js";
+import {
+  initRequestTabs,
+  getKeyValuePairs,
+  setKeyValuePairs,
+} from "./scripts/requestUI.js";
+import { getHistory, saveToHistory, clearHistory } from "./scripts/storage.js";
 
 const DEFAULT_API = "https://jsonplaceholder.typicode.com/posts/1";
 
@@ -10,6 +20,7 @@ const methodSelect = document.getElementById("methodSelect");
 const bodyInput = document.getElementById("bodyInput");
 const sendBtn = document.getElementById("sendBtn");
 const copyBtn = document.getElementById("copyBtn");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const responseBtns = document.querySelectorAll(".responseBtn");
 
 const state = {
@@ -18,6 +29,21 @@ const state = {
 };
 
 initRequestTabs();
+renderHistory(getHistory(), loadHistoryItem);
+
+function loadHistoryItem(item) {
+  methodSelect.value = item.method;
+  input.value = item.url;
+  bodyInput.value = item.body || "";
+  setKeyValuePairs("paramsList", item.params || []);
+  setKeyValuePairs("headersList", item.headers || []);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+clearHistoryBtn.addEventListener("click", () => {
+  const updated = clearHistory();
+  renderHistory(updated, loadHistoryItem);
+});
 
 methodSelect.addEventListener("change", () => {
   const method = methodSelect.value;
@@ -75,6 +101,17 @@ form.addEventListener("submit", async (e) => {
     state.lastResult = result;
     state.activeView = result.isValidJSON ? "json" : "raw";
     renderResponse(result, state.activeView);
+
+    const updatedHistory = saveToHistory({
+      method,
+      url,
+      params,
+      headers,
+      body,
+      status: result.status,
+      ok: result.ok,
+    });
+    renderHistory(updatedHistory, loadHistoryItem);
   } catch (err) {
     state.lastResult = null;
     const msg =

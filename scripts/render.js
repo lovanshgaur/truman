@@ -5,6 +5,7 @@ const dataWrapper = document.querySelector(".dataWrapper");
 const responseBtns = document.querySelectorAll(".responseBtn");
 const jsonBtn = document.querySelector('.responseBtn[data-name="json"]');
 const headersBtn = document.querySelector('.responseBtn[data-name="headers"]');
+const historyList = document.getElementById("historyList");
 
 export function renderResponse(result, view) {
   statusSpan.textContent = `${result.status} ${result.statusText}`.trim();
@@ -55,7 +56,43 @@ export function setLoading(isLoading, sendBtn) {
   }
 }
 
+export function renderHistory(items, onSelect) {
+  historyList.innerHTML = "";
+
+  if (!items.length) {
+    const empty = document.createElement("li");
+    empty.className = "historyEmpty";
+    empty.textContent = "No recent requests.";
+    historyList.appendChild(empty);
+    return;
+  }
+
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "historyItem";
+
+    const statusClass = item.ok ? "ok" : "err";
+    li.innerHTML = `
+      <div class="historyMeta">
+        <span class="historyMethod">${item.method}</span>
+        <span class="historyUrl">${escapeHtml(item.url)}</span>
+      </div>
+      <span class="historyStatus ${statusClass}">${item.status}</span>
+    `;
+
+    li.addEventListener("click", () => onSelect(item));
+    historyList.appendChild(li);
+  });
+}
+
 function formatBytes(bytes) {
   if (bytes < 1024) return `${bytes} B`;
   return `${(bytes / 1024).toFixed(2)} KB`;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
