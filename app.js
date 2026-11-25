@@ -9,6 +9,7 @@ const input = document.getElementById("input");
 const methodSelect = document.getElementById("methodSelect");
 const bodyInput = document.getElementById("bodyInput");
 const sendBtn = document.getElementById("sendBtn");
+const copyBtn = document.getElementById("copyBtn");
 const responseBtns = document.querySelectorAll(".responseBtn");
 
 const state = {
@@ -28,13 +29,34 @@ methodSelect.addEventListener("change", () => {
 responseBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     const view = btn.dataset.name;
-    if (view === "json" && !state.lastResult?.isValidJSON) return;
+    if (!state.lastResult) return;
+    if (view === "json" && !state.lastResult.isValidJSON) return;
 
     state.activeView = view;
-    if (state.lastResult) {
-      renderResponse(state.lastResult, state.activeView);
-    }
+    renderResponse(state.lastResult, state.activeView);
   });
+});
+
+copyBtn.addEventListener("click", async () => {
+  if (!state.lastResult) return;
+
+  let text = state.lastResult.rawText;
+  if (state.activeView === "json" && state.lastResult.isValidJSON) {
+    text = JSON.stringify(state.lastResult.json, null, 2);
+  } else if (state.activeView === "headers") {
+    text = Object.entries(state.lastResult.headers)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join("\n");
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+  } catch {
+    copyBtn.textContent = "Failed";
+    setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+  }
 });
 
 form.addEventListener("submit", async (e) => {

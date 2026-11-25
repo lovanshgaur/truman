@@ -63,13 +63,23 @@
                             <h4>Status :</h4>
                             <span id="status">-</span>
                         </div>
+                        <div class="tag time">
+                            <h4>Time :</h4>
+                            <span id="time">-</span>
+                        </div>
+                        <div class="tag size">
+                            <h4>Size :</h4>
+                            <span id="size">-</span>
+                        </div>
                     </div>
                     <div class="response-output">
                         <div class="response-header">
                             <div class="response-actions">
                                 <button class="responseBtn" data-name="json" disabled>JSON</button>
                                 <button class="responseBtn active" data-name="raw">Raw</button>
+                                <button class="responseBtn" data-name="headers" disabled>Headers</button>
                             </div>
+                            <button type="button" class="copyBtn" id="copyBtn">Copy</button>
                         </div>
                         <div class="response-body">
                             <code class="dataWrapper language-json">Enter a URL and click Send.</code>

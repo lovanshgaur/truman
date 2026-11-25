@@ -62,6 +62,19 @@
   cursor: not-allowed;
 }
 
+.copyBtn {
+  background: var(--highlight);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  cursor: pointer;
+}
+
+.copyBtn:hover {
+  opacity: 0.9;
+}
+
 .response-body {
   padding-top: 1rem;
 }
