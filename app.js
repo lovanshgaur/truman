@@ -11,12 +11,14 @@ import {
   setKeyValuePairs,
 } from "./scripts/requestUI.js";
 import { getHistory, saveToHistory, clearHistory } from "./scripts/storage.js";
+import { PRESETS } from "./scripts/presets.js";
 
 const DEFAULT_API = "https://jsonplaceholder.typicode.com/posts/1";
 
 const form = document.getElementById("apiForm");
 const input = document.getElementById("input");
 const methodSelect = document.getElementById("methodSelect");
+const presetSelect = document.getElementById("presetSelect");
 const bodyInput = document.getElementById("bodyInput");
 const sendBtn = document.getElementById("sendBtn");
 const copyBtn = document.getElementById("copyBtn");
@@ -29,20 +31,41 @@ const state = {
 };
 
 initRequestTabs();
-renderHistory(getHistory(), loadHistoryItem);
+renderHistory(getHistory(), loadRequestConfig);
 
-function loadHistoryItem(item) {
+function loadRequestConfig(item) {
   methodSelect.value = item.method;
   input.value = item.url;
   bodyInput.value = item.body || "";
   setKeyValuePairs("paramsList", item.params || []);
   setKeyValuePairs("headersList", item.headers || []);
+
+  if (item.method === "POST" || item.method === "PUT") {
+    document.querySelector('.reqTabBtn[data-tab="body"]').click();
+  } else if (item.params?.length) {
+    document.querySelector('.reqTabBtn[data-tab="params"]').click();
+  }
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+presetSelect.addEventListener("change", () => {
+  const preset = PRESETS[presetSelect.value];
+  if (!preset) return;
+  loadRequestConfig(preset);
+  presetSelect.value = "";
+});
+
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    form.requestSubmit();
+  }
+});
+
 clearHistoryBtn.addEventListener("click", () => {
   const updated = clearHistory();
-  renderHistory(updated, loadHistoryItem);
+  renderHistory(updated, loadRequestConfig);
 });
 
 methodSelect.addEventListener("change", () => {
@@ -111,7 +134,7 @@ form.addEventListener("submit", async (e) => {
       status: result.status,
       ok: result.ok,
     });
-    renderHistory(updatedHistory, loadHistoryItem);
+    renderHistory(updatedHistory, loadRequestConfig);
   } catch (err) {
     state.lastResult = null;
     const msg =

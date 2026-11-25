@@ -13,6 +13,14 @@
     <div id="app">
         <header>
             <h1>truman</h1>
+            <select id="presetSelect" class="presetSelect" aria-label="Sample endpoints">
+                <option value="">Try a sample...</option>
+                <option value="get-post">GET /posts/1</option>
+                <option value="get-users">GET /users?id=1</option>
+                <option value="post-create">POST /posts (Create)</option>
+                <option value="put-update">PUT /posts/1 (Update)</option>
+                <option value="delete-post">DELETE /posts/1</option>
+            </select>
         </header>
         <main>
             <div class="requestPanel">
@@ -82,7 +90,7 @@
                             <button type="button" class="copyBtn" id="copyBtn">Copy</button>
                         </div>
                         <div class="response-body">
-                            <code class="dataWrapper language-json">Enter a URL and click Send.</code>
+                            <code class="dataWrapper language-json">Enter a URL and click Send (or press Ctrl+Enter).</code>
                         </div>
                     </div>
                 </div>
