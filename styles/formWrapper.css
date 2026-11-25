@@ -1,39 +1,54 @@
 .requestPanel {
   width: 85%;
-  margin: 3rem auto;
+  margin: 2rem auto;
 }
+
 .requestFormWrapper {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
-.formType {
-  background: var(--surface);
-  padding: 0.5rem 0.75rem;
-  font-size: 1.25rem;
-}
+
 .apiForm {
   width: 100%;
   display: flex;
   gap: 0.5rem;
 }
+
+.methodSelect {
+  background: var(--surface);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-weight: 700;
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+}
+
 .apiForm input {
   width: 100%;
-  padding: 0.5rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   background: var(--surface);
+  color: var(--color);
+}
+
+.apiForm input::placeholder {
   color: var(--muted);
 }
-.apiForm input:hover,
-.apiForm input:focus,
-.apiForm input:focus-visible,
-.apiForm input:active {
-  background: var(--surface) !important;
-  color: var(--accent);
+
+.apiForm input:focus {
+  outline: 1px solid var(--accent);
 }
 
 .apiForm button {
   background: var(--accent);
-  padding: 0.5rem 1.5rem;
+  color: var(--background);
+  font-weight: 700;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+}
+
+.apiForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

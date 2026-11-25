@@ -7,43 +7,46 @@
     <title>truman</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
 </head>
 
 <body>
     <div id="app">
-        <header></header>
+        <header>
+            <h1>truman</h1>
+        </header>
         <main>
             <div class="requestPanel">
                 <div class="requestFormWrapper">
-                    <div class="formType">
-                        <div class="sans">GET</div>
-                    </div>
                     <form class="apiForm" id="apiForm">
-                        <input type="text" name="api" id="input">
-                        <button type="submit">Send</button>
+                        <select name="method" id="methodSelect" class="methodSelect sans">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                        <input type="text" name="api" id="input" placeholder="https://jsonplaceholder.typicode.com/posts/1" autocomplete="off">
+                        <button type="submit" id="sendBtn">Send</button>
                     </form>
                 </div>
             </div>
+
             <div class="responsePanel">
                 <div class="responseWrapper">
-
                     <div class="tags">
                         <div class="tag status">
                             <h4>Status :</h4>
-                            <span id="status" class="ok"></span>
+                            <span id="status">-</span>
                         </div>
                     </div>
                     <div class="response-output">
                         <div class="response-header">
                             <div class="response-actions">
-                                <button class="responseBtn" data-name="json">JSON</button>
+                                <button class="responseBtn" data-name="json" disabled>JSON</button>
                                 <button class="responseBtn active" data-name="raw">Raw</button>
                             </div>
                         </div>
                         <div class="response-body">
-                            <code class="dataWrapper language-json">
-                            </code>
+                            <code class="dataWrapper language-json">Enter a URL and click Send.</code>
                         </div>
                     </div>
                 </div>
@@ -52,12 +55,9 @@
         <footer></footer>
     </div>
 
-
-    <!-- Prism CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>

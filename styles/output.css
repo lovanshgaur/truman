@@ -1,57 +1,77 @@
 .responsePanel {
   width: 85%;
-  min-height: 100%;
   margin: 2rem auto;
   padding: 1rem;
   background: var(--surface);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
-.responseWrapper{
+
+.responseWrapper {
   width: 100%;
 }
+
 .tags {
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   width: 100%;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
+
 .tags .tag {
   display: flex;
   gap: 0.5rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
+
 .tag span {
   font-family: var(--mono);
 }
 
-.response-output{
-  padding: 0.5rem 0rem;
+.response-output {
+  padding: 0.5rem 0;
 }
-.response-header{
-  width: 100%;
-}
-.response-actions{
+
+.response-header {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  gap: 0.25rem;
-  border-bottom: 1px solid var(--muted);
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
 }
-.responseBtn{
+
+.response-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.responseBtn {
   padding: 0.5rem 0.75rem;
   background: none;
   color: var(--color);
-  transition: all 0.5s ease-in-out;
+  cursor: pointer;
 }
-.responseBtn.active{
-  border-bottom: 1px solid var(--accent);
+
+.responseBtn.active {
+  border-bottom: 2px solid var(--accent);
+  color: var(--accent);
 }
+
+.responseBtn:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.response-body {
+  padding-top: 1rem;
+}
+
 code {
   padding: 0;
   display: block;
   background: none !important;
   white-space: pre-wrap !important;
   overflow-wrap: anywhere;
+  font-family: var(--mono);
+  font-size: 0.9rem;
 }
