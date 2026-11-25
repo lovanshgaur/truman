@@ -1,5 +1,6 @@
 import { sendRequest } from "./scripts/api.js";
 import { renderResponse, renderError, setLoading } from "./scripts/render.js";
+import { initRequestTabs } from "./scripts/requestUI.js";
 
 const DEFAULT_API = "https://jsonplaceholder.typicode.com/posts/1";
 
@@ -11,8 +12,17 @@ const responseBtns = document.querySelectorAll(".responseBtn");
 
 const state = {
   lastResult: null,
-  activeView: "raw",
+  activeView: "raw"
 };
+
+initRequestTabs();
+
+methodSelect.addEventListener("change", () => {
+  const method = methodSelect.value;
+  if (method === "POST" || method === "PUT") {
+    document.querySelector('.reqTabBtn[data-tab="body"]').click();
+  }
+});
 
 responseBtns.forEach((btn) => {
   btn.addEventListener("click", () => {

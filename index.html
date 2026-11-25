@@ -28,6 +28,32 @@
                         <button type="submit" id="sendBtn">Send</button>
                     </form>
                 </div>
+
+                <div class="requestConfig">
+                    <div class="requestTabs">
+                        <button type="button" class="reqTabBtn active" data-tab="params">Params</button>
+                        <button type="button" class="reqTabBtn" data-tab="headers">Headers</button>
+                        <button type="button" class="reqTabBtn" data-tab="body">Body</button>
+                    </div>
+
+                    <div class="reqTabContent active" id="tab-params">
+                        <div class="kvList" id="paramsList"></div>
+                        <button type="button" class="addRowBtn" data-target="paramsList">+ Add Param</button>
+                    </div>
+
+                    <div class="reqTabContent" id="tab-headers">
+                        <div class="kvList" id="headersList"></div>
+                        <button type="button" class="addRowBtn" data-target="headersList">+ Add Header</button>
+                    </div>
+
+                    <div class="reqTabContent" id="tab-body">
+                        <div class="bodyToolbar">
+                            <span class="bodyHint">JSON Payload</span>
+                            <button type="button" class="formatJsonBtn" id="formatJsonBtn">Format JSON</button>
+                        </div>
+                        <textarea id="bodyInput" rows="6" placeholder='{\n  "title": "foo",\n  "body": "bar",\n  "userId": 1\n}'></textarea>
+                    </div>
+                </div>
             </div>
 
             <div class="responsePanel">
@@ -57,7 +83,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-    <script type="module" src="app.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
