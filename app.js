@@ -1,18 +1,19 @@
 import { sendRequest } from "./scripts/api.js";
 import { renderResponse, renderError, setLoading } from "./scripts/render.js";
-import { initRequestTabs } from "./scripts/requestUI.js";
+import { initRequestTabs, getKeyValuePairs } from "./scripts/requestUI.js";
 
 const DEFAULT_API = "https://jsonplaceholder.typicode.com/posts/1";
 
 const form = document.getElementById("apiForm");
 const input = document.getElementById("input");
 const methodSelect = document.getElementById("methodSelect");
+const bodyInput = document.getElementById("bodyInput");
 const sendBtn = document.getElementById("sendBtn");
 const responseBtns = document.querySelectorAll(".responseBtn");
 
 const state = {
   lastResult: null,
-  activeView: "raw"
+  activeView: "raw",
 };
 
 initRequestTabs();
@@ -40,11 +41,15 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const url = input.value.trim() || DEFAULT_API;
   const method = methodSelect.value;
-  input.value = url;
+  const params = getKeyValuePairs("paramsList");
+  const headers = getKeyValuePairs("headersList");
+  const body = bodyInput.value;
 
+  input.value = url;
   setLoading(true, sendBtn);
+
   try {
-    const result = await sendRequest({ url, method });
+    const result = await sendRequest({ url, method, params, headers, body });
     state.lastResult = result;
     state.activeView = result.isValidJSON ? "json" : "raw";
     renderResponse(result, state.activeView);
@@ -53,7 +58,7 @@ form.addEventListener("submit", async (e) => {
     const msg =
       err instanceof TypeError && err.message.includes("URL")
         ? "Invalid URL. Include http:// or https://"
-        : `Request failed: ${err.message}`;
+        : err.message;
     renderError(msg);
   } finally {
     setLoading(false, sendBtn);
