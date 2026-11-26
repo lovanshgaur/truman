@@ -66,6 +66,7 @@ h3 {
 
 header {
   width: 85%;
+  max-width: 960px;
   margin-top: 2rem;
   display: flex;
   align-items: center;
@@ -94,4 +95,49 @@ header h1 {
 
 main {
   width: 100%;
+}
+
+.requestPanel,
+.responsePanel,
+.historyPanel {
+  max-width: 960px;
+}
+
+@media (max-width: 640px) {
+  header,
+  .requestPanel,
+  .responsePanel,
+  .historyPanel {
+    width: 92%;
+  }
+
+  .apiForm {
+    flex-wrap: wrap;
+  }
+
+  .methodSelect {
+    flex: 1;
+  }
+
+  .apiForm button {
+    flex: 1;
+  }
+
+  .apiForm input {
+    order: 3;
+    width: 100%;
+  }
+
+  .kvRow {
+    flex-wrap: wrap;
+  }
+
+  .kvRow input {
+    min-width: 40%;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
 }
